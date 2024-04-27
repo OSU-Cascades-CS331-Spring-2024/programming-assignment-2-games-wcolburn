@@ -45,13 +45,6 @@ class MinimaxPlayer(Player):
     def utility(self, board):
         return board.count_score('X') - board.count_score('O')
 
-    def successor(self, board):
-        new_board = board.clone_of_board
-        for col in board.get_num_cols:
-            for row in board.get_num_rows:
-                if board.is_legal_move(col, row)
-
-
     def max_value(self, board):
         if self.is_terminal(board):
             return self.utility(board), None
