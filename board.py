@@ -28,7 +28,7 @@ class Board:
     def __init__(self, cols, rows):
         self.cols = cols
         self.rows = rows
-        #Col x Row grid filled with "EMPTY"
+        # Col x Row grid filled with "EMPTY"
         self.grid = [[EMPTY for x in range(cols)] for y in range(rows)]
 
 

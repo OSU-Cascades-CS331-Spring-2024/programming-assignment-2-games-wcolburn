@@ -2,15 +2,16 @@
     Defines Player class, and subclasses Human and Minimax Player.
 '''
 
+
 class Player:
     def __init__(self, symbol):
         self.symbol = symbol
 
-    #PYTHON: use obj.symbol instead
+    # PYTHON: use obj.symbol instead
     def get_symbol(self):
         return self.symbol
-    
-    #parent get_move should not be called
+
+    # parent get_move should not be called
     def get_move(self, board):
         raise NotImplementedError()
 
@@ -21,8 +22,8 @@ class HumanPlayer(Player):
 
     def clone(self):
         return HumanPlayer(self.symbol)
-        
-#PYTHON: return tuple instead of change reference as in C++
+
+    # PYTHON: return tuple instead of change reference as in C++
     def get_move(self, board):
         col = int(input("Enter col:"))
         row = int(input("Enter row:"))
@@ -37,10 +38,16 @@ class MinimaxPlayer(Player):
             self.oppSym = 'O'
         else:
             self.oppSym = 'X'
-       
-        
 
+    def max_value(self, board):
+        return None, None
 
+    def min_value(self, board):
+        return None, None
 
-
-
+    def get_move(self, board):
+        if self.symbol == 'X':
+            value, move = self.max_value(self, board)
+        else:
+            value, move = self.min_value(self, board)
+        return move

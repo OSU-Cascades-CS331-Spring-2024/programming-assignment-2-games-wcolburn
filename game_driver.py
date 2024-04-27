@@ -60,7 +60,7 @@ class GameDriver:
                 if cant_move_counter == 1:
                     break
                 else:
-                    cant_move_counter +=1
+                    cant_move_counter += 1
             toggle = (toggle + 1) % 2
             if toggle == 0:
                 current, opponent = self.p1, self.p2
@@ -73,7 +73,7 @@ class GameDriver:
         state = self.board.count_score(self.p1.symbol) - self.board.count_score(self.p2.symbol)
         if state == 0:
             print("Tie game!!")
-        elif state >0:
+        elif state > 0:
             print("Player 1 Wins!")
         else:
             print("Player 2 Wins!")
