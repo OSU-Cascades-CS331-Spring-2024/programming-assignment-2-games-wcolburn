@@ -42,12 +42,12 @@ class MinimaxPlayer(Player):
     def is_terminal(self, board):
         return not board.has_legal_moves_remaining(self.symbol) and not board.has_legal_moves_remaining(self.oppSym)
 
-    def utility(self, board, player):
-        return board.count_score(player) - board.count_score(self.oppSym)
+    def utility(self, board):
+        return board.count_score('X') - board.count_score('O')
 
     def max_value(self, board):
         if self.is_terminal(self, board):
-            return self.utility(board, self.oppSym)
+            return self.utility(board)
 
     def min_value(self, board):
         return None, None
