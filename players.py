@@ -46,7 +46,7 @@ class MinimaxPlayer(Player):
         return None, None
 
     def is_terminal(self, board):
-        return board.has_legal_moves_remaining(self.symbol) and board.has_legal_moves_remaining(self.oppSym)
+        return not board.has_legal_moves_remaining(self.symbol) and not board.has_legal_moves_remaining(self.oppSym)
 
     def get_move(self, board):
         if self.symbol == 'X':
