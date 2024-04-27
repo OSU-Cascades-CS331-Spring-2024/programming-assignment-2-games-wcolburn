@@ -45,6 +45,9 @@ class MinimaxPlayer(Player):
     def min_value(self, board):
         return None, None
 
+    def is_terminal(self, board):
+        return board.has_legal_moves_remaining(self.symbol) and board.has_legal_moves_remaining(self.oppSym)
+
     def get_move(self, board):
         if self.symbol == 'X':
             value, move = self.max_value(self, board)

@@ -49,7 +49,7 @@ class OthelloBoard(Board):
             print("Invalid Direction.")
         return col, row
 
-    # Recursively travel in a direction
+    # Recursively travel in a direction to find if this is the last piece in a line
     def check_endpoint(self, col, row, symbol, d, match_symbol):  # match is bool type
         if not self.is_in_bounds(col, row) or self.is_cell_empty(col, row):
             return False
