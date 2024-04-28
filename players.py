@@ -1,6 +1,7 @@
 '''
     Defines Player class, and subclasses Human and Minimax Player.
 '''
+from game import Game
 
 
 class Player:
@@ -38,6 +39,7 @@ class MinimaxPlayer(Player):
             self.oppSym = 'O'
         else:
             self.oppSym = 'X'
+        self.game = Game()
 
     def is_terminal(self, board):
         return not board.has_legal_moves_remaining(self.symbol) and not board.has_legal_moves_remaining(self.oppSym)
@@ -50,8 +52,12 @@ class MinimaxPlayer(Player):
             return self.utility(board), None
 
         value = float('-inf')
-        for result in self.successor(board):
+        move = None
+        for result in self.game.successor(board):
             v2, a2 = self.min_value(result)
+            if v2 > value:
+                value, move = v2, a2
+            return value, move
 
     def min_value(self, board):
         return None, None

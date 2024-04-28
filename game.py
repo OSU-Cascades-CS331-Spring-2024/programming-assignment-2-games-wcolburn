@@ -8,6 +8,9 @@ class Game:
         else:
             self.current_player = 'X'
 
+    def set_current_player(self, player):
+        self.current_player = player
+
     def successor(self, board):
         successors = []
         for col in board.get_num_cols:

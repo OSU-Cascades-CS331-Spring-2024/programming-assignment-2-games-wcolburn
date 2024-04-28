@@ -4,6 +4,7 @@
 import sys
 from players import *
 from othello_board import OthelloBoard
+from game import Game
 
 
 class GameDriver:
