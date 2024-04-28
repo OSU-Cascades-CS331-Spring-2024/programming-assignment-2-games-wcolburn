@@ -11,7 +11,7 @@ class OthelloBoard(Board):
         self.p1_symbol = p1
         self.p2_symbol = p2
 
-    #PYTHON: this function is substitute for clone. call as New = Old.clone_of_board()
+    # PYTHON: this function is substitute for clone. call as New = Old.clone_of_board()
     def clone_of_board(self):
         tmp = OthelloBoard(self.cols, self.rows, self.p1_symbol, self.p2_symbol)
         tmp.grid = copy.deepcopy(self.grid)

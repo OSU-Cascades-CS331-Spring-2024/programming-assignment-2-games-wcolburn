@@ -41,16 +41,10 @@ class MinimaxPlayer(Player):
             self.oppSym = 'X'
         self.game = Game()
 
-    def is_terminal(self, board):
-        return not board.has_legal_moves_remaining(self.symbol) and not board.has_legal_moves_remaining(self.oppSym)
-
-    def utility(self, board):
-        return board.count_score('X') - board.count_score('O')
-
     def max_value(self, board):
-        if self.is_terminal(board):
+        if self.game.is_terminal(board):
             self.game.next_ply()
-            return self.utility(board), None
+            return self.game.utility(board), None
 
         value = float('-inf')
         move = None
@@ -62,9 +56,9 @@ class MinimaxPlayer(Player):
         return value, move
 
     def min_value(self, board):
-        if self.is_terminal(board):
+        if self.game.is_terminal(board):
             self.game.next_ply()
-            return self.utility(board), None
+            return self.game.utility(board), None
 
         value = float('inf')
         move = None

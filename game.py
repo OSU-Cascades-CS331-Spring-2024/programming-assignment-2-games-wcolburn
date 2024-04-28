@@ -11,6 +11,12 @@ class Game:
     def set_current_player(self, player):
         self.current_player = player
 
+    def is_terminal(self, board):
+        return not board.has_legal_moves_remaining('X') and not board.has_legal_moves_remaining('O')
+
+    def utility(self, board):
+        return board.count_score('X') - board.count_score('O')
+
     def successor(self, board):
         successors = []
         for col in board.get_num_cols:
