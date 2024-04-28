@@ -19,8 +19,8 @@ class Game:
 
     def successor(self, board):
         successors = []
-        for col in board.get_num_cols:
-            for row in board.get_num_rows:
+        for col in range(0, board.get_num_cols - 1):
+            for row in range(0, board.get_num_rows - 1):
                 if board.is_legal_move(col, row, self.current_player):
                     new_board = board.clone_of_board
                     new_board.play_move(col, row, self.current_player)  # Generate a successor - a potential next move
