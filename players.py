@@ -57,12 +57,22 @@ class MinimaxPlayer(Player):
             v2, a2 = self.min_value(result)
             if v2 > value:
                 value, move = v2, a2
-            return value, move
+        return value, move
 
     def min_value(self, board):
-        return None, None
+        if self.is_terminal(board):
+            return self.utility(board), None
+
+        value = float('inf')
+        move = None
+        for result in self.game.successor(board):
+            v2, a2 = self.max_value(result)
+            if v2 < value:
+                value, move = v2, a2
+        return value, move
 
     def get_move(self, board):
+        self.game.set_current_player(self.symbol)
         if self.symbol == 'X':
             value, move = self.max_value(board)
         else:
