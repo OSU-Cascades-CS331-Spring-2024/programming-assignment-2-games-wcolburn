@@ -49,6 +49,7 @@ class MinimaxPlayer(Player):
 
     def max_value(self, board):
         if self.is_terminal(board):
+            self.game.next_ply()
             return self.utility(board), None
 
         value = float('-inf')
@@ -57,10 +58,12 @@ class MinimaxPlayer(Player):
             v2, a2 = self.min_value(result)
             if v2 > value:
                 value, move = v2, a2
+        self.game.next_ply()
         return value, move
 
     def min_value(self, board):
         if self.is_terminal(board):
+            self.game.next_ply()
             return self.utility(board), None
 
         value = float('inf')
@@ -69,6 +72,7 @@ class MinimaxPlayer(Player):
             v2, a2 = self.max_value(result)
             if v2 < value:
                 value, move = v2, a2
+        self.game.next_ply()
         return value, move
 
     def get_move(self, board):
