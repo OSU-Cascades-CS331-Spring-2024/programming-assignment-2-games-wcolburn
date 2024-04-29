@@ -22,8 +22,8 @@ class Game:
 
     def actions(self, board):
         actions = []
-        num_cols = board.get_num_cols() - 1
-        num_rows = board.get_num_rows() - 1
+        num_cols = board.get_num_cols()
+        num_rows = board.get_num_rows()
         for col in range(0, num_cols):
             for row in range(0, num_rows):
                 if board.is_legal_move(col, row, self.current_player):
