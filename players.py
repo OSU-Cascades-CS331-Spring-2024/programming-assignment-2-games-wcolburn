@@ -41,9 +41,11 @@ class MinimaxPlayer(Player):
             self.oppSym = 'X'
         self.game = Game()
 
-    def max_value(self, board):
-        if self.game.is_terminal(board):
-            self.game.next_ply()
+    def calc_depth_limit(self, board):
+        return (board.get_num_cols() + board.get_num_rows()) / 4.5
+
+    def max_value(self, board, depth):
+        if self.game.is_terminal(board) or depth > self.calc_depth_limit(board):
             return self.game.utility(board), None
 
         value = float('-inf')
@@ -51,15 +53,14 @@ class MinimaxPlayer(Player):
         states = self.game.successor(board)
         actions = self.game.actions(board)
         for i in range(len(actions)):
-            v2, a2 = self.min_value(states[i])
+            v2, a2 = self.min_value(states[i], depth + 1)
             if v2 > value:
                 value, move = v2, actions[i]
         self.game.next_ply()
         return value, move
 
-    def min_value(self, board):
-        if self.game.is_terminal(board):
-            self.game.next_ply()
+    def min_value(self, board, depth):
+        if self.game.is_terminal(board) or depth > self.calc_depth_limit(board):
             return self.game.utility(board), None
 
         value = float('inf')
@@ -67,7 +68,7 @@ class MinimaxPlayer(Player):
         states = self.game.successor(board)
         actions = self.game.actions(board)
         for i in range(len(actions)):
-            v2, a2 = self.max_value(states[i])
+            v2, a2 = self.max_value(states[i], depth + 1)
             if v2 < value:
                 value, move = v2, actions[i]
         self.game.next_ply()
@@ -75,8 +76,10 @@ class MinimaxPlayer(Player):
 
     def get_move(self, board):
         self.game.set_current_player(self.symbol)
+        depth = 0
         if self.symbol == 'X':
-            value, move = self.max_value(board)
+            value, move = self.max_value(board, depth)
         else:
-            value, move = self.min_value(board)
+            value, move = self.min_value(board, depth)
         return move
+
