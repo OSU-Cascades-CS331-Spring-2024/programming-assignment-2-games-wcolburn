@@ -42,10 +42,12 @@ class MinimaxPlayer(Player):
         self.game = Game()
 
     def calc_depth_limit(self, board):
-        return (board.get_num_cols() + board.get_num_rows()) / 4.5
+        # return (board.get_num_cols() + board.get_num_rows()) / 4.5
+        return 2
 
     def max_value(self, board, depth):
         if self.game.is_terminal(board) or depth > self.calc_depth_limit(board):
+            self.game.next_ply()
             return self.game.utility(board), None
 
         value = float('-inf')
@@ -53,14 +55,15 @@ class MinimaxPlayer(Player):
         states = self.game.successor(board)
         actions = self.game.actions(board)
         for i in range(len(actions)):
+            self.game.next_ply()
             v2, a2 = self.min_value(states[i], depth + 1)
             if v2 > value:
                 value, move = v2, actions[i]
-        self.game.next_ply()
         return value, move
 
     def min_value(self, board, depth):
         if self.game.is_terminal(board) or depth > self.calc_depth_limit(board):
+            self.game.next_ply()
             return self.game.utility(board), None
 
         value = float('inf')
@@ -68,10 +71,10 @@ class MinimaxPlayer(Player):
         states = self.game.successor(board)
         actions = self.game.actions(board)
         for i in range(len(actions)):
+            self.game.next_ply()
             v2, a2 = self.max_value(states[i], depth + 1)
             if v2 < value:
                 value, move = v2, actions[i]
-        self.game.next_ply()
         return value, move
 
     def get_move(self, board):
