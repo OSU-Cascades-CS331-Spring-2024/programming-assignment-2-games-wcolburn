@@ -2,9 +2,9 @@
     Defines game driver class, used to play a game of Othello.
 '''
 import sys
+from timeit import default_timer as timer
 from players import *
 from othello_board import OthelloBoard
-from game import Game
 
 
 class GameDriver:
@@ -28,17 +28,28 @@ class GameDriver:
         self.board = OthelloBoard(num_rows, num_cols, self.p1.symbol, self.p2.symbol)
         self.board.initialize()
 
+        self.minimax_turn_times = []
+
+    def average_minimax_turn_time(self):
+        return sum(self.minimax_turn_times) / len(self.minimax_turn_times)
+
     def display(self):
         print("Player 1 (", self.p1.symbol, ") score: ",
                 self.board.count_score(self.p1.symbol))
 
     def process_move(self, curr_player, opponent):
         invalid_move = True
+        start_time = 0
         while invalid_move:
+            if isinstance(curr_player, MinimaxPlayer):
+                start_time = timer()  # Start timer for Minimax's turn
             (col, row) = curr_player.get_move(self.board)
             if not self.board.is_legal_move(col, row, curr_player.symbol):
                 print("Invalid move")
             else:
+                if isinstance(curr_player, MinimaxPlayer):
+                    end_time = timer()
+                    self.minimax_turn_times.append(end_time - start_time)  # End timer and append time to list
                 print("Move:", [col,row], "\n")
                 self.board.play_move(col,row,curr_player.symbol)
                 return
@@ -79,10 +90,12 @@ class GameDriver:
         else:
             print("Player 2 Wins!")
 
+        print("Average time per turn for minimax player: ", self.average_minimax_turn_time())
+
 
 if __name__ == "__main__":
     if(len(sys.argv)) != 3:
         print("Usage: python3 game_driver.py <player1 type> <player2 type>")
         exit(1)
-    game = GameDriver(sys.argv[1], sys.argv[2], 8, 8)
+    game = GameDriver(sys.argv[1], sys.argv[2], 4, 4)
     game.run()
