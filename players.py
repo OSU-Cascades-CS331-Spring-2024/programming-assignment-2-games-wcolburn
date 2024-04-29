@@ -48,10 +48,12 @@ class MinimaxPlayer(Player):
 
         value = float('-inf')
         move = None
-        for result in self.game.successor(board):
-            v2, a2 = self.min_value(result)
+        states = self.game.successor(board)
+        actions = self.game.actions(board)
+        for i in range(len(actions)):
+            v2, a2 = self.min_value(states[i])
             if v2 > value:
-                value, move = v2, a2
+                value, move = v2, actions[i]
         self.game.next_ply()
         return value, move
 
@@ -62,10 +64,12 @@ class MinimaxPlayer(Player):
 
         value = float('inf')
         move = None
-        for result in self.game.successor(board):
-            v2, a2 = self.max_value(result)
+        states = self.game.successor(board)
+        actions = self.game.actions(board)
+        for i in range(len(actions)):
+            v2, a2 = self.max_value(states[i])
             if v2 < value:
-                value, move = v2, a2
+                value, move = v2, actions[i]
         self.game.next_ply()
         return value, move
 
