@@ -1,3 +1,6 @@
+from othello_board import OthelloBoard
+
+
 class Game:
     def __init__(self):
         self.current_player = 'X'
@@ -24,7 +27,7 @@ class Game:
         for col in range(0, num_cols):
             for row in range(0, num_rows):
                 if board.is_legal_move(col, row, self.current_player):
-                    new_board = board.clone_of_board
+                    new_board = board.clone_of_board()
                     new_board.play_move(col, row, self.current_player)  # Generate a successor - a potential next move
                     successors.append(new_board)
         return successors
