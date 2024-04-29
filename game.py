@@ -20,14 +20,22 @@ class Game:
     def utility(self, board):
         return board.count_score('X') - board.count_score('O')
 
-    def successor(self, board):
-        successors = []
+    def actions(self, board):
+        actions = []
         num_cols = board.get_num_cols() - 1
         num_rows = board.get_num_rows() - 1
         for col in range(0, num_cols):
             for row in range(0, num_rows):
                 if board.is_legal_move(col, row, self.current_player):
-                    new_board = board.clone_of_board()
-                    new_board.play_move(col, row, self.current_player)  # Generate a successor - a potential next move
-                    successors.append(new_board)
+                    actions.append((col, row))
+        return actions
+
+    def successor(self, board):
+        successors = []
+        for action in self.actions(board):
+            col = action[0]
+            row = action[1]
+            new_board = board.clone_of_board()
+            new_board.play_move(col, row, self.current_player)  # Generate a successor - a potential next move
+            successors.append(new_board)
         return successors
