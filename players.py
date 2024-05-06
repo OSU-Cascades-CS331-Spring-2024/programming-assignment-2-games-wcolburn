@@ -42,8 +42,7 @@ class MinimaxPlayer(Player):
         self.game = Game()
 
     def calc_depth_limit(self, board):
-        # return (board.get_num_cols() + board.get_num_rows()) / 4.5
-        return 2
+        return (board.get_num_cols() + board.get_num_rows()) / 4.5
 
     def max_value(self, board, depth):
         if self.game.is_terminal(board) or depth > self.calc_depth_limit(board):
